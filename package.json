@@ -10,11 +10,19 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxtjs/dotenv": "^1.4.2",
+    "@nuxtjs/tailwindcss": "^6.13.1",
+    "@pinia/nuxt": "^0.9.0",
     "@storyblok/nuxt": "^6.2.2",
+    "bootstrap": "^5.3.3",
     "fs": "^0.0.1-security",
     "nuxt": "^3.15.4",
+    "pinia": "^2.3.1",
     "storyblok": "^3.35.2",
     "vue": "latest",
     "vue-router": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.1"
   }
 }

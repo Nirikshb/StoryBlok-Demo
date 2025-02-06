@@ -1,20 +1,27 @@
+import fs from 'fs'
+import path from 'path'
+import dotenv from 'dotenv'
+
+dotenv.config()
 export default defineNuxtConfig({
-  compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
+  // css: ['@/assets/main.css'], // Optional, if you have global styles
+  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt',], // Tailwind for better styling
   server: {
     https: process.env.NODE_ENV === 'development'
-      ? async () => {
-          const fs = await import('fs')  // Dynamically import fs
-          return {
-            key: fs.readFileSync(path.resolve(__dirname, './certs/localhost-key.pem')),
-            cert: fs.readFileSync(path.resolve(__dirname, './certs/localhost.pem')),
-          }
+      ? {
+          key: fs.readFileSync(path.resolve('./certs/localhost-key.pem')),
+          cert: fs.readFileSync(path.resolve('./certs/localhost.pem')),
         }
-      : null, // Disable https in non-development environments
-    port: 3000,
+      : false, // Disable in production
+    port: 3000, // Port to run Nuxt on
+    host: '192.168.31.216', // Allow connections from the local network (optional)
   },
+
   storyblok: {
-    accessToken: 'K4rs8bPdRidWPJ3cesn8Fgtt', // Use the access token from your Storyblok space
-    cacheProvider: 'memory'
+    accessToken: process.env.STORYBLOK_ACCESS_TOKEN || 'K4rs8bPdRidWPJ3cesn8Fgtt',
+    cacheProvider: 'memory',
   },
+
+  compatibilityDate: '2025-02-04',
 })
